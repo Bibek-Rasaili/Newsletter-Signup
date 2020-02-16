@@ -44,27 +44,38 @@ app.post("/", function(req, res) {
       "pass": "684551b1529964a3c23a5606b1c0fbff-us4"
     },
 
-    body: jsonData
+    // body: jsonData
   };
 
 
   request(options, function(error, response, body) {
     if (error) {
-      res.send("<h1> There has been an error "+error+"</h1>");
       console.log("There is an error " + error);
+      res.sendFile(__dirname+"/failure.html");
+
     } else {
       console.log(response.statusCode);
       if (response.statusCode === 200)
-        res.write(response.statusCode +" SUCCESS!");
+        res.sendFile(__dirname+"/success.html");
       else
-        res.write(response.statusCode+" Fail");
-        res.send();
+        res.sendFile(__dirname+"/failure.html");
     }
 
   });
 });
 
 
+app.get("/success", function(req, res) {
+  res.sendFile(__dirname + "/success.html");
+});
+
+app.get("/failure", function(req, res) {
+  res.sendFile(__dirname + "/failure.html");
+});
+
+app.post("/failure", function(req, res){
+  res.sendFile(__dirname+"/signup.html");
+});
 
 app.listen(3000, function() {
   console.log("server is running on port 3000");
