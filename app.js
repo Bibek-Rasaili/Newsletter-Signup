@@ -34,55 +34,49 @@ app.post("/", function(req, res) {
 
   var jsonData = JSON.stringify(data);
 
-  console.log("Name: " + firstName + " " + lastName + "\n email " + email);
-
   var options = {
     url: "https://us4.api.mailchimp.com/3.0/lists/571d2acbc0",
     method: "POST",
     "auth": {
       "user": "abc123",
       "pass": "684551b1529964a3c23a5606b1c0fbff-us4"
-    },
+    }, 
 
-    // body: jsonData
+    body: jsonData
+    //commenting this will give http request status code 400
   };
-
 
   request(options, function(error, response, body) {
     if (error) {
-      console.log("There is an error " + error);
+      console.log("Error "+error);
       res.sendFile(__dirname+"/failure.html");
 
     } else {
-      console.log(response.statusCode);
-      if (response.statusCode === 200)
-        res.sendFile(__dirname+"/success.html");
-      else
-        res.sendFile(__dirname+"/failure.html");
-    }
 
+      if (response.statusCode === 200)
+      {
+        console.log(response.statusCode);
+        res.sendFile(__dirname+"/success.html");
+      }
+      else
+      {
+        console.log(response.statusCode);
+        res.sendFile(__dirname+"/failure.html");
+      }
+    }
   });
 });
 
-
-app.get("/success", function(req, res) {
-  res.sendFile(__dirname + "/success.html");
-});
-
-app.get("/failure", function(req, res) {
-  res.sendFile(__dirname + "/failure.html");
-});
 
 app.post("/failure", function(req, res){
   res.redirect("/");
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("server is running on port 3000");
 });
 
 
 // 684551b1529964a3c23a5606b1c0fbff-us4
 
-// 571d2acbc0
 // 571d2acbc0
