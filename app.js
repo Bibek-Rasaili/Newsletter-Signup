@@ -74,7 +74,7 @@ app.get("/failure", function(req, res) {
 });
 
 app.post("/failure", function(req, res){
-  res.sendFile(__dirname+"/signup.html");
+  res.redirect("/");
 });
 
 app.listen(3000, function() {
