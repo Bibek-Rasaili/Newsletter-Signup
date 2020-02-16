@@ -40,7 +40,7 @@ app.post("/", function(req, res) {
     "auth": {
       "user": "abc123",
       "pass": "684551b1529964a3c23a5606b1c0fbff-us4"
-    }, 
+    },
 
     body: jsonData
     //commenting this will give http request status code 400
@@ -67,7 +67,6 @@ app.post("/", function(req, res) {
   });
 });
 
-
 app.post("/failure", function(req, res){
   res.redirect("/");
 });
@@ -75,8 +74,3 @@ app.post("/failure", function(req, res){
 app.listen(process.env.PORT || 3000, function() {
   console.log("server is running on port 3000");
 });
-
-
-// 684551b1529964a3c23a5606b1c0fbff-us4
-
-// 571d2acbc0
