@@ -22,6 +22,14 @@ app.post("/", function(req, res) {
   var lastName = req.body.lname;
   var email = req.body.email;
 
+  //read the API file here
+  var API_KEY = "";
+  try {
+    API_KEY = fs.readFileSync(__dirname + "/API.txt", 'utf8').trim();
+  } catch (e) {
+    console.log("Error, reading the file! " + e);
+  }
+
   var data = {
     members: [{
       email_address: email,
@@ -41,8 +49,8 @@ app.post("/", function(req, res) {
     method: "POST",
     "auth": {
       "user": "abc123",
-      "pass": "684551b1529964a3c23a5606b1c0fbff-us4"
-    },
+      "pass": API_KEY
+    }, //read from a file which is not uploaded publicly
 
     body: jsonData
     //commenting this will give http request status code 400
@@ -50,26 +58,24 @@ app.post("/", function(req, res) {
 
   request(options, function(error, response, body) {
     if (error) {
-      console.log("Error "+error);
-      res.sendFile(__dirname+"/failure.html");
+      console.log("Error " + error);
+      res.sendFile(__dirname + "/failure.html");
 
     } else {
 
-      if (response.statusCode === 200)
-      {
+      if (response.statusCode === 200) {
         console.log(response.statusCode);
-        res.sendFile(__dirname+"/success.html");
-      }
-      else
-      {
+        res.sendFile(__dirname + "/success.html");
+      } else {
         console.log(response.statusCode);
-        res.sendFile(__dirname+"/failure.html");
+        console.log("\n " + response);
+        res.sendFile(__dirname + "/failure.html");
       }
     }
   });
 });
 
-app.post("/failure", function(req, res){
+app.post("/failure", function(req, res) {
   res.redirect("/");
 });
 
