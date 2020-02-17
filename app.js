@@ -1,6 +1,8 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+//File System is a native module, therefore does not require installing, only requiring
 
 const app = express();
 app.use(bodyParser.urlencoded({
